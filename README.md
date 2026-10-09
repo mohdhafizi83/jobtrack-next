@@ -1,5 +1,7 @@
 # JobTrack
 
+[![CI](https://github.com/mohdhafizi83/jobtrack-next/actions/workflows/ci.yml/badge.svg)](https://github.com/mohdhafizi83/jobtrack-next/actions/workflows/ci.yml)
+
 A job-application kanban you can actually finish in a weekend — built as a
 production-shaped Next.js 16 app, not a tutorial toy.
 
