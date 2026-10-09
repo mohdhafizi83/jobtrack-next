@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     "Track job applications from saved to offer. Next.js 16 App Router, typed route handlers, file-backed store, drag & drop.",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
       lang="en"
