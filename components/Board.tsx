@@ -7,7 +7,6 @@ export default function Board({ initialJobs }: { initialJobs: Job[] }) {
   const [jobs, setJobs] = useState<Job[]>(initialJobs);
   const [error, setError] = useState<string | null>(null);
   const [dragOver, setDragOver] = useState<Stage | null>(null);
-  const [adding, startAdd] = useState(false);
   const [isPending, startTransition] = useTransition();
 
   const byStage = useMemo(() => {
@@ -40,7 +39,6 @@ export default function Board({ initialJobs }: { initialJobs: Job[] }) {
     }
     const { job } = (await res.json()) as { job: Job };
     setJobs((prev) => [job, ...prev]);
-    startAdd(false);
   }
 
   async function move(id: string, stage: Stage) {
