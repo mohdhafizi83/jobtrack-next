@@ -14,9 +14,19 @@ async function read(): Promise<Board> {
   }
 }
 
+/**
+ * Atomic write: serialize to a unique temp file in the same directory, then
+ * rename over the target (rename is atomic on POSIX). A crash mid-write can
+ * therefore never leave a truncated/corrupt board.json — the old file stays
+ * intact and only a stray .tmp file is left behind (harmless; each write uses
+ * a fresh unique name).
+ */
 async function write(board: Board): Promise<void> {
-  await fs.mkdir(path.dirname(DB_PATH), { recursive: true });
-  await fs.writeFile(DB_PATH /*turbopackIgnore: true*/, JSON.stringify(board, null, 2), "utf8");
+  const dir = path.dirname(DB_PATH);
+  await fs.mkdir(dir, { recursive: true });
+  const tmp = path.join(dir, `.board.json.${process.pid}.${crypto.randomUUID()}.tmp`);
+  await fs.writeFile(tmp, JSON.stringify(board, null, 2), "utf8");
+  await fs.rename(tmp, DB_PATH /*turbopackIgnore: true*/);
 }
 
 const now = () => new Date().toISOString();
