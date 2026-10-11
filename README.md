@@ -43,8 +43,22 @@ npm run build && npm start     # or: npm run dev
 Tests (node built-in runner, TypeScript stripped natively):
 
 ```bash
-npm test        # 5 store tests: create/move/delete/sort/404
+npm test        # 15 tests: store CRUD/sort/atomic-write + API validation
 ```
+
+## Security
+
+Hardened within an explicitly single-user, no-auth-by-design scope (see
+[SECURITY.md](SECURITY.md) for the honest threat model):
+
+- Nonce-based CSP (per-request, via `proxy.ts`) + `X-Frame-Options: DENY`,
+  `X-Content-Type-Options: nosniff`, `Referrer-Policy: no-referrer`,
+  `X-Powered-By` removed
+- API input validation: 64 KB body cap (413), type/length checks (400),
+  generic 500s that never leak internals
+- Atomic store writes (temp file + rename) — a crash can't corrupt `board.json`
+- CI: SHA-pinned actions, `npm audit` gate on runtime deps, gitleaks on full
+  history
 
 ## Design notes
 
