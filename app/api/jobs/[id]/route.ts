@@ -1,24 +1,31 @@
 import { NextRequest, NextResponse } from "next/server";
 import { moveJob, deleteJob } from "@/lib/store";
-import type { Stage } from "@/lib/types";
-
-const VALID: Stage[] = ["saved", "applied", "interview", "offer", "rejected"];
+import { HttpError, parseStage, readJsonBody } from "@/lib/validation";
 
 export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
-  const body = await req.json().catch(() => null);
-  const stage = body?.stage as Stage;
-  if (!VALID.includes(stage)) {
-    return NextResponse.json({ error: `stage must be one of ${VALID.join(", ")}` }, { status: 400 });
+  try {
+    const { id } = await params;
+    const stage = parseStage(await readJsonBody(req));
+    const job = await moveJob(id, stage);
+    if (!job) return NextResponse.json({ error: "not found" }, { status: 404 });
+    return NextResponse.json({ job });
+  } catch (err) {
+    if (err instanceof HttpError) {
+      return NextResponse.json({ error: err.message }, { status: err.status });
+    }
+    console.error("PATCH /api/jobs/:id failed:", err); // full detail server-side only
+    return NextResponse.json({ error: "internal server error" }, { status: 500 });
   }
-  const job = await moveJob(id, stage);
-  if (!job) return NextResponse.json({ error: "not found" }, { status: 404 });
-  return NextResponse.json({ job });
 }
 
 export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
-  const ok = await deleteJob(id);
-  if (!ok) return NextResponse.json({ error: "not found" }, { status: 404 });
-  return NextResponse.json({ ok: true });
+  try {
+    const { id } = await params;
+    const ok = await deleteJob(id);
+    if (!ok) return NextResponse.json({ error: "not found" }, { status: 404 });
+    return NextResponse.json({ ok: true });
+  } catch (err) {
+    console.error("DELETE /api/jobs/:id failed:", err);
+    return NextResponse.json({ error: "internal server error" }, { status: 500 });
+  }
 }

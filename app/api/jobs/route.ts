@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse, connection } from "next/server";
 import { listJobs, createJob } from "@/lib/store";
+import { HttpError, parseCreateJob, readJsonBody } from "@/lib/validation";
 
 export async function GET() {
   await connection(); // always serve fresh store state
@@ -7,10 +8,15 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
-  const body = await req.json().catch(() => null);
-  if (!body?.title || !body?.company) {
-    return NextResponse.json({ error: "title and company are required" }, { status: 400 });
+  try {
+    const input = parseCreateJob(await readJsonBody(req));
+    const job = await createJob(input);
+    return NextResponse.json({ job }, { status: 201 });
+  } catch (err) {
+    if (err instanceof HttpError) {
+      return NextResponse.json({ error: err.message }, { status: err.status });
+    }
+    console.error("POST /api/jobs failed:", err); // full detail server-side only
+    return NextResponse.json({ error: "internal server error" }, { status: 500 });
   }
-  const job = await createJob(body);
-  return NextResponse.json({ job }, { status: 201 });
 }
