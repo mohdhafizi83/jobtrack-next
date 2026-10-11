@@ -73,7 +73,7 @@ export default function Board({ initialJobs }: { initialJobs: Job[] }) {
 
   return (
     <>
-      <div className="stats" style={{ marginBottom: 12 }}>
+      <div className="stats">
         <span><b>{counts}</b> tracked</span>
         <span><b>{byStage.applied.length}</b> applied</span>
         <span><b>{byStage.interview.length}</b> interviewing</span>

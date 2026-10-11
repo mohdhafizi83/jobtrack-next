@@ -29,7 +29,7 @@ h1 { font-size: 22px; letter-spacing: -0.02em; }
 
 .pageheader { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; margin-bottom: 20px; }
 
-.stats { display: flex; gap: 14px; color: var(--muted); font-size: 12px; }
+.stats { display: flex; gap: 14px; color: var(--muted); font-size: 12px; margin-bottom: 12px; }
 .stats b { color: var(--text); }
 
 form.newjob {
