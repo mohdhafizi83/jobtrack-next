@@ -9,6 +9,16 @@ Track applications across **Saved → Applied → Interview → Offer → Reject
 with native HTML5 drag & drop, optimistic UI with rollback, and a typed
 REST API.
 
+![board screenshot](docs/screenshot.png)
+
+## Architecture
+
+![request flow](docs/architecture.svg)
+
+Two request paths: interactive mutations go Browser → typed API → store;
+first paint is a Server Component that reads the store directly (no client
+fetch).
+
 ## Stack
 
 - **Next.js 16** (App Router, `cacheComponents` / PPR-style streaming,

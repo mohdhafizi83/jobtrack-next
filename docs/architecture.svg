@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 290" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#475569"/>
+    </marker>
+  </defs>
+  <rect width="860" height="290" fill="#f8fafc"/>
+  <text x="430" y="34" text-anchor="middle" font-size="19" font-weight="700" fill="#0f172a">JobTrack request flow</text>
+
+  <rect x="40" y="70" width="230" height="110" rx="10" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="155" y="98" text-anchor="middle" font-size="15" font-weight="700" fill="#1e3a8a">Browser (React 19)</text>
+  <text x="155" y="120" text-anchor="middle" font-size="12.5" fill="#1e3a8a">kanban · HTML5 drag &amp; drop</text>
+  <text x="155" y="138" text-anchor="middle" font-size="12.5" fill="#1e3a8a">useTransition optimistic UI</text>
+  <text x="155" y="156" text-anchor="middle" font-size="12.5" fill="#1e3a8a">rollback + error banner on fail</text>
+
+  <rect x="330" y="70" width="230" height="110" rx="10" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="445" y="98" text-anchor="middle" font-size="15" font-weight="700" fill="#78350f">Typed REST API</text>
+  <text x="445" y="120" text-anchor="middle" font-size="12.5" fill="#78350f">Next 16 route handlers</text>
+  <text x="445" y="138" text-anchor="middle" font-size="12.5" fill="#78350f">GET POST PATCH DELETE /api/jobs</text>
+  <text x="445" y="156" text-anchor="middle" font-size="12.5" fill="#78350f">stage-enum + field validation</text>
+
+  <rect x="620" y="70" width="200" height="110" rx="10" fill="#dcfce7" stroke="#22c55e" stroke-width="1.5"/>
+  <text x="720" y="98" text-anchor="middle" font-size="15" font-weight="700" fill="#14532d">File-backed store</text>
+  <text x="720" y="120" text-anchor="middle" font-size="12.5" fill="#14532d">data/board.json</text>
+  <text x="720" y="138" text-anchor="middle" font-size="12.5" fill="#14532d">zero external deps</text>
+  <text x="720" y="156" text-anchor="middle" font-size="12.5" fill="#14532d">store module = swap seam</text>
+
+  <line x1="270" y1="113" x2="328" y2="113" stroke="#475569" stroke-width="2" marker-end="url(#arr2)"/>
+  <line x1="560" y1="127" x2="618" y2="127" stroke="#475569" stroke-width="2" marker-end="url(#arr2)"/>
+
+  <rect x="330" y="215" width="490" height="66" rx="10" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="575" y="234" text-anchor="middle" font-size="13.5" font-weight="700" fill="#334155">Server Component first paint</text>
+  <text x="575" y="252" text-anchor="middle" font-size="12.5" fill="#334155">page reads the store directly — no client fetch on load</text>
+  <text x="575" y="268" text-anchor="middle" font-size="12.5" fill="#334155">(connection() + instant=false under cacheComponents)</text>
+  <path d="M 720 180 L 720 211" fill="none" stroke="#475569" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arr2)"/>
+</svg>
