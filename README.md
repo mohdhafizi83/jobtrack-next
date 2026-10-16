@@ -46,6 +46,12 @@ fetch).
 ## Run
 
 ```bash
+docker compose up -d --build   # → http://localhost:18085 (HOST_PORT=xxxx to change)
+```
+
+Or without Docker:
+
+```bash
 npm install
 npm run build && npm start     # or: npm run dev
 ```

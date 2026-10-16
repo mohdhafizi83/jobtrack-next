@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   /* config options here */
+  output: "standalone", // minimal self-contained server for Docker images
   cacheComponents: true,
   partialPrefetching: true,
   poweredByHeader: false,

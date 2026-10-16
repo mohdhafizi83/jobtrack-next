@@ -1,0 +1,27 @@
+services:
+  jobtrack:
+    build: .
+    image: jobtrack-next:local
+    ports:
+      # Host port is configurable; 18085 is the shared test port on this server.
+      - "${HOST_PORT:-18085}:3000"
+    environment:
+      JOBTRACK_DB: /app/data/board.json
+    volumes:
+      - jobtrack-data:/app/data
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://127.0.0.1:3000/api/jobs').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))",
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    restart: unless-stopped
+
+volumes:
+  jobtrack-data:
